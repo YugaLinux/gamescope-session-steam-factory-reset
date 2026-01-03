@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -eu
+
+if [ ! -x /usr/bin/steamos-factory-reset-config ]; then
+    exit 0
+fi
+
+if [[ $EUID -ne 0 ]];
+then
+    exec pkexec --disable-internal-agent "$0" "$@"
+fi
+
+exec /usr/bin/steamos-factory-reset-config "$@"
