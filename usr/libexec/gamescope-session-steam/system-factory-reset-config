@@ -1,3 +1,9 @@
 #!/usr/bin/bash
 
+# dummy script not doing anything.
+# A real implementation will probably require root priviliges to
+# execute the factory reset, see
+# /usr/share/doc/gamescope-session-steam/org.gamescope-session-steam-factory-reset.reset.policy
+# for an example policy to place in /usr/share/polkit-1/actions
+
 exit 0

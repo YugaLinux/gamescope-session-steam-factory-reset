@@ -1,14 +1,16 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 set -eu
 
-if [ ! -x /usr/bin/steamos-factory-reset-config ]; then
-    exit 0
-fi
+# This script is called by Steam and must live here
 
-if [[ $EUID -ne 0 ]];
-then
-    exec pkexec --disable-internal-agent "$0" "$@"
-fi
 
-exec /usr/bin/steamos-factory-reset-config "$@"
+# Hook for factory reset script
+STEAMOS_FACTORY_RESET_CONFIG_SCRIPT="/usr/libexec/gamescope-session-steam/system-factory-reset-config"
+
+if [ -x $STEAMOS_FACTORY_RESET_CONFIG_SCRIPT ] ; then
+	# Call factory reset script as current user
+	${STEAMOS_FACTORY_RESET_CONFIG_SCRIPT} $@
+else
+	exit 0
+fi
